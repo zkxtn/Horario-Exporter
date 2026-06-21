@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="Icons">
+    <file>logoUPC.ico</file>
+  </qresource>
+</RCC>
