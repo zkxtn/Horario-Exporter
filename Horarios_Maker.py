@@ -33,6 +33,7 @@ def vincular_funciones(ui:App.Ui_Form):
     button_remove_exam=ui.Eliminar_Examen_Button
     select_exam=ui.Examen_List
 
+
     button_create.clicked.connect(create_ics)
     button_remove.clicked.connect(remove_class)
     button_remove_exam.clicked.connect(remove_exam)
@@ -175,7 +176,8 @@ def create_ics():
             hora_fi = hora_fi.strftime("%H:%M:%S")
             aula = current["sessions"][0]["recurs"]
             periodicitat = current["periodicitat"]
-            datos.append((uid,asignatura, grupo, dia_semana, hora_inici, hora_fi, aula, periodicitat))
+            tipus = current["tipus"]
+            datos.append((uid,asignatura, grupo, dia_semana, hora_inici, hora_fi, aula, periodicitat,tipus))
     for clase, sesiones in examenes_elegidos.items():
         asignatura_seleccionada = clase.split(" - ")[1]
         sigles_asignatura = clase.split(" - ")[0]
@@ -192,7 +194,7 @@ def create_ics():
 
         
 
-    for iud,asignatura, grupo, weekday, start_str, end_str, location, periodicitat in datos:
+    for iud,asignatura, grupo, weekday, start_str, end_str, location, periodicitat,tipus in datos:
         first_day = semester_start + timedelta(days=(weekday - semester_start.weekday()) % 7)
         start_hour, start_minute, _ = map(int, start_str.split(":"))
         end_hour, end_minute, _ = map(int, end_str.split(":"))
@@ -202,7 +204,7 @@ def create_ics():
         event.add("summary", f"{asignatura} ({grupo})")
         event.add("location", location)
 
-        if periodicitat == "-":
+        if periodicitat == "-" or tipus == "T":
           event.add("dtstart", datetime(first_day.year, first_day.month, first_day.day,
                                       start_hour, start_minute, tzinfo=semester_start.tzinfo))
           event.add("rrule", {"freq": "weekly","until": semester_end})

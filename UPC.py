@@ -15,7 +15,7 @@ class UPC_API:
     def generic_pub(self):
         ano = None
         mitad = None
-        if datetime.now().month >= 9:
+        if datetime.now().month >= 7:
             ano = datetime.now().year
             mitad = 1
         else:
@@ -258,6 +258,7 @@ class Asignaturas(UPC_API):
   def getDict(self):
       asignaturas = requests.get(self.url_asignatura)
       asignaturas = asignaturas.json()
+      print(asignaturas)
       clases={}
       for asignatura in asignaturas:
           clases[f"{asignatura['sigles']} - {asignatura['nom_cat']}"] = asignatura['codi_upc_ud']
@@ -331,11 +332,12 @@ class Horarios(UPC_API):
 
 if __name__ == "__main__":
     print("by Zk")
+    print(UPC_API().generic_pub())
     var = "https://visorhoraris.upc.edu/horaris?escola=295&quad=2&curs=2025&programa=1264&assignaturas=820094,820430,820425,295906,820428,820426&groups=M1of820428,M1of820426,M1of820425,M15of820425,M11of820426,M12of820426,M1of820430,M13of820426,M13of820428,M13of820430,M12of820428,M11of820428&lang=cahttps://visorhoraris.upc.edu/horaris?escola=295&quad=2&curs=2025&programa=1264&assignaturas=820094,820430,820425,295906,820428,820426&groups=M1of820428,M1of820426,M1of820425,M15of820425,M11of820426,M12of820426,M1of820430,M13of820426,M13of820428,M13of820430,M12of820428,M11of820428&lang=ca"
     info_URL=UPC_URL(var)
     print(info_URL.grupos)
     print(info_URL.asignaturas.getAsignatura(list(info_URL.grupos.keys())[0]).sigles)
     patata=info_URL.asignaturas.getAsignatura(list(info_URL.grupos.keys())[0])
-    print(info_URL.examenes)
+    #print(info_URL.examenes)
 
 

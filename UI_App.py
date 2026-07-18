@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from datetime import datetime
 
 
 class Ui_Form(object):
@@ -1229,7 +1230,13 @@ class Ui_Form(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ToolTipText, brush)
         self.Start_Date.setPalette(palette)
-        self.Start_Date.setDateTime(QtCore.QDateTime(QtCore.QDate(2025, 1, 1), QtCore.QTime(0, 0, 0)))
+        if datetime.now().month >= 7:
+            ano_1 = datetime.now().year
+            q_start,q_end = 9,1
+        else:
+            q_start,q_end = 2,6
+        ano_2 = datetime.now().year + 1
+        self.Start_Date.setDateTime(QtCore.QDateTime(QtCore.QDate(ano_1, q_start, 1), QtCore.QTime(0, 0, 0)))
         self.Start_Date.setCalendarPopup(True)
         self.Start_Date.setProperty("Dark-Transparency", "")
         self.Start_Date.setObjectName("Start_Date")
@@ -1526,9 +1533,9 @@ class Ui_Form(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ToolTipText, brush)
         self.End_Date.setPalette(palette)
-        self.End_Date.setDateTime(QtCore.QDateTime(QtCore.QDate(2026, 1, 1), QtCore.QTime(0, 0, 0)))
+        self.End_Date.setDateTime(QtCore.QDateTime(QtCore.QDate(ano_2, q_end, 1), QtCore.QTime(0, 0, 0)))
         self.End_Date.setCalendarPopup(True)
-        self.End_Date.setDate(QtCore.QDate(2026, 1, 1))
+        self.End_Date.setDate(QtCore.QDate(ano_2, q_end, 1))
         self.End_Date.setProperty("Dark-Transparency", "")
         self.End_Date.setObjectName("End_Date")
         self.End_Date_Layout.addWidget(self.End_Date)
@@ -5237,8 +5244,8 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Horario Maker"))
-        self.Titulo.setText(_translate("Form", "Horario Maker"))
+        Form.setWindowTitle(_translate("Form", "Horario Exporter"))
+        self.Titulo.setText(_translate("Form", "Horario Exporter"))
         self.Titulo_2.setText(_translate("Form", "by Zk"))
         self.Text_Cuatrimestre_Start.setText(_translate("Form", "Inicio del Cuatrimestre:"))
         self.Start_Date.setDisplayFormat(_translate("Form", "dd/MM/yyyy"))
