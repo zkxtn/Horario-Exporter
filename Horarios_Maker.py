@@ -237,7 +237,7 @@ def create_ics():
         event.add("dtend", datetime(first_day.year, first_day.month, first_day.day,
                                     end_hour, end_minute, tzinfo=semester_start.tzinfo))
         cal.add_component(event)
-    path,_=QtWidgets.QFileDialog.getSaveFileName(filter=".ics")
+    path,_=QtWidgets.QFileDialog.getSaveFileName(filter="*.ics")
 
 
     #path=os.getcwd()
