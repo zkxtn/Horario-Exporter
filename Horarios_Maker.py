@@ -242,7 +242,10 @@ def create_ics():
 
     #path=os.getcwd()
     #path=pathlib.Path(__file__).parent.resolve()
-    if path != "": open(f"{path}.ics", "wb").write(cal.to_ical())
+    if path!="":
+        if path[-4:] == ".ics" or path[-4:] == ".ICS":
+            open(f"{path}", "wb").write(cal.to_ical())
+        else: open(f"{path}.ics", "wb").write(cal.to_ical())
 
 
 if __name__ == "__main__":
